@@ -3,10 +3,6 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 import random
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
 # Fetch the service account key JSON file contents
 
 cred = credentials.Certificate("./Trie/internship-takehome-firebase-adminsdk-bcor9-338334a160.json")
