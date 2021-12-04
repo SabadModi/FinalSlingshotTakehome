@@ -150,7 +150,7 @@ class Trie(object):
             print(i)
 
     def display(self):
-        file = open('./Trie/input.txt', 'w')
+        file = open('input.txt', 'w')
         for i in self.words:
             file.write(i+"\n")
         file.close()
