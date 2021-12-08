@@ -51,8 +51,9 @@ Start using the Trie
 
 
 ## Screenshots
+![image](https://user-images.githubusercontent.com/41366297/145268415-f417886f-e262-4d8b-aefc-baa8048b024f.png)
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![image](https://user-images.githubusercontent.com/41366297/145268355-6e954fc0-ef98-4a2a-852e-c9524bc1e1f4.png)
 ## What I learnt
 
 I learnt how to implement DSA whilst also learning a lot more about developing packages and modules. I learnt about Environment Variables and different and efficient strategies to implement the Trie DSA.
