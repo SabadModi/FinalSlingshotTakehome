@@ -1,5 +1,4 @@
 pydot
-firebase_admin
 PyInquirer
 PyDictionary
 translate
