@@ -31,7 +31,7 @@ def main_prompt():
 def main():
 
     f = Figlet(font="banner3-D")
-    print(f.renderText("Sabad's Trie"))
+    print(f.renderText("WordzFun"))
     
     time.sleep(5)
     

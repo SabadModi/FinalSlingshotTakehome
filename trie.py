@@ -1,13 +1,9 @@
 from graph import *
 import random
-from dotenv import load_dotenv
-import os
 from supabase_py import create_client, Client
 
-load_dotenv()
-
-url: str = os.getenv("SUPABASE_URL")
-key: str = os.getenv("SUPABASE_KEY")
+url: str = "https://qbqrvgjvnxbhctmqcbpx.supabase.co"
+key: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzODkwNjc1MywiZXhwIjoxOTU0NDgyNzUzfQ.eVMDuLqzaF4qHYjRRQ7HUvlY0V0twuqYoCfWHf6VJpk"
 supabase: Client = create_client(url, key)
 
 class TrieNode:
@@ -42,7 +38,6 @@ class Trie(object):
         
         values = self.getDB()
         for i in values:
-            print(i)
             self.words.append(i)
 
         self.createTrie()

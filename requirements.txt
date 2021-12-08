@@ -5,4 +5,3 @@ translate
 pyfiglet
 nltk
 supabase_py
-python-dotenv
