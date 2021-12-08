@@ -1,18 +1,14 @@
-from graph import *
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import db
+from .graph import *
 import random
-# Fetch the service account key JSON file contents
+from dotenv import load_dotenv
+import os
+from supabase_py import create_client, Client
 
-cred = credentials.Certificate("./Trie/internship-takehome-firebase-adminsdk-bcor9-338334a160.json")
+load_dotenv()
 
-print(os.getenv('PATH'))
-
-# Initialize the app with a service account, granting admin privileges
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://internship-takehome-default-rtdb.firebaseio.com/'
-})
+url: str = os.getenv("SUPABASE_URL")
+key: str = os.getenv("SUPABASE_KEY")
+supabase: Client = create_client(url, key)
 
 class TrieNode:
     # Trie Node
@@ -39,31 +35,52 @@ class Trie(object):
         self.word_list = []
         # list of words in firebase
         self.words = []
-        ref = db.reference("/")
-        for i in ref.get().values():
-            self.words.append(i)
         
+        # ref = db.reference("/")
+        # for i in ref.get().values():
+        #     self.words.append(i)
+        
+        values = self.getDB()
+        for i in values:
+            print(i)
+            self.words.append(i)
+
         self.createTrie()
         
     def createTrie(self):
         # form the trie everytime you run code
         for word in self.words:
             self.insert(word, True)
+    
+    # Get values of db
+    def getDB(self):
+        data = supabase.table("words").select("*").execute()
+        count = 0
+        for key, value in data.items():
+            count+=1
+            if(count==1):
+                valuesOfTable = [x['name'] for x in value]
+                return valuesOfTable
+            break
+
+    # Insert
+    def insertDB(self, word):
+        data = supabase.table("words").insert({"name":str(word)}).execute()
 
     def insert(self, word, trieForm=False):
         word = word.lower()
-        
-        ref = db.reference("/")
-        data = ref.get()
+
+        data = self.getDB()
         exists = False
-        for i in data.values():
+        for i in data:
             if(i==word):
                 if(trieForm == False):
                     print("Word Already Exists!")
                 exists = True
 
+
         if(exists==False):
-            ref.push(word)
+            self.insertDB(word)
             print("Inserted!")
             self.words.append(word)
 
@@ -85,31 +102,34 @@ class Trie(object):
 
         # Increment the counter to indicate that we see this word once more
         node.counter += 1
-
+    
     def search(self, key):
+         
+        # Searches the given key in trie for a full match
+        # and returns True on success else returns False.
         key = key.lower()
         node = self.root
         found = True
-        copy=key
-        word=''
-        while(len(key)>0):
-            word=word+key[0]
-            try:
-                node=node.children[key[0]]
-                key=key[1:]
-            except:
+ 
+        for a in list(key):
+            if not node.children.get(a):
+                found = False
                 break
-
-        if word==copy:
+ 
+            node = node.children[a]
+ 
+        if(node and node.last and found) == True:
             return "Found"
         else:
-            return "Not found"
+            return "Not Found"
 
     def showAllWords(self):
         self.words = []
-        ref = db.reference("/")
-        for i in ref.get().values():
+
+        data = self.getDB()
+        for i in data:
             self.words.append(i)
+
         for j in self.words:
             print(j)
 
@@ -144,9 +164,10 @@ class Trie(object):
 
         for i in self.word_list:
             print(i)
+        self.word_list = []
 
     def display(self):
-        file = open('input.txt', 'w')
+        file = open('./Trie-2/input.txt', 'w')
         for i in self.words:
             file.write(i+"\n")
         file.close()

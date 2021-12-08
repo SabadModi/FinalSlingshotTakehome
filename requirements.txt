@@ -5,3 +5,4 @@ PyDictionary
 translate
 pyfiglet
 nltk
+supabase_py

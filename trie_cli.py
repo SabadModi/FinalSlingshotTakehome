@@ -1,6 +1,6 @@
 from __future__ import print_function, unicode_literals
 from PyInquirer import prompt
-from trie import *
+from .trie import *
 from PyDictionary import PyDictionary
 import time
 
@@ -150,7 +150,8 @@ def main():
             time.sleep(2)
             answers=main_prompt()
 
-    except Exception:
+    except Exception as e:
+        print(e)
         print("An error occurred")
         exit("Thanks for using my trie!")
         

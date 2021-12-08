@@ -12,7 +12,7 @@ def trie():
 
     # getting list of words as input from the file
 
-    file_ = open('input.txt', 'r')
+    file_ = open('./Trie-2/input.txt', 'r')
     file_text = file_.read()
     file_len = len(file_text)
     file_.close()
@@ -31,7 +31,7 @@ def trie():
             cur_word = []
 
     # saving the trie in a json file
-    with open('output.json', 'w') as fp:
+    with open('./Trie-2/output.json', 'w') as fp:
         json.dump(root, fp, indent=4)
 
     # converting and saving the trie to dot language decision tree graph using pydot
@@ -64,4 +64,4 @@ def trie():
 
     graph = pydot.Dot(graph_type='digraph')
     visit(rt)
-    graph.write_pdf('output.pdf')
+    graph.write_pdf('./Trie-2/output.pdf')
